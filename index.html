@@ -1,1 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Chulesi - Party Place Booking System</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="screen active">
+        <div class="welcome-content">
+            <h1 class="welcome-title">
+                <i class="fas fa-hotel"></i>
+                Welcome to Hotel Chulesi
+            </h1>
+            <p class="welcome-subtitle">Your Ultimate Party Place Booking System</p>
+            <button id="getStartedBtn" class="btn-primary">
+                <i class="fas fa-rocket"></i> Get Started
+            </button>
+        </div>
+    </div>
 
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Login</h2>
+                <span class="close-btn" id="closeAuth">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="authForm">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="nameInput" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="emailInput" placeholder="Gmail" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="passwordInput" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Login</button>
+                    <p class="switch-auth" id="switchAuth">Don't have account? <span>Register</span></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="screen">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <i class="fas fa-hotel"></i>
+                <span>Hotel Chulesi</span>
+            </div>
+            <div class="header-right">
+                <span id="userName"></span>
+                <button id="logoutBtn" class="btn-secondary">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Flats Section -->
+        <section class="flats-section">
+            <h2>Available Party Flats</h2>
+            <div class="flats-grid">
+                <div class="flat-card" data-flat="1">
+                    <div class="flat-image">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="flat-info">
+                        <h3>Party Flat 1</h3>
+                        <p><i class="fas fa-users"></i> 100 Guests</p>
+                        <div class="price">Rs 25,000</div>
+                        <button class="btn-primary book-btn">Book Now</button>
+                    </div>
+                </div>
+                <div class="flat-card" data-flat="2">
+                    <div class="flat-image">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="flat-info">
+                        <h3>Party Flat 2</h3>
+                        <p><i class="fas fa-users"></i> 150 Guests</p>
+                        <div class="price">Rs 35,000</div>
+                        <button class="btn-primary book-btn">Book Now</button>
+                    </div>
+                </div>
+                <div class="flat-card premium" data-flat="3">
+                    <div class="flat-image">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="flat-info">
+                        <h3>Premium Party Flat</h3>
+                        <p><i class="fas fa-users"></i> 250 Guests</p>
+                        <div class="price">Rs 50,000</div>
+                        <button class="btn-primary book-btn">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="quick-actions">
+            <div class="action-card" onclick="openChat()">
+                <i class="fas fa-comments"></i>
+                <h3>Chat with Owner</h3>
+                <p>Discuss your party plans</p>
+            </div>
+            <div class="action-card" onclick="showBookings()">
+                <i class="fas fa-calendar-check"></i>
+                <h3>My Bookings</h3>
+                <p>View booking history</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Chat Section -->
+    <div id="chatSection" class="screen">
+        <header class="chat-header">
+            <button id="backToDashboard" class="btn-back">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div>
+                <h3>Hotel Owner</h3>
+                <span>Online</span>
+            </div>
+        </header>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-input-container">
+            <input type="text" id="chatInput" placeholder="Type your message...">
+            <button id="sendMessageBtn">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Bookings Section -->
+    <div id="bookingsSection" class="screen">
+        <header class="bookings-header">
+            <button id="backToDashboard2" class="btn-back">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>My Bookings</h2>
+        </header>
+        <div id="bookingsList" class="bookings-list">
+            <p>No bookings yet. Book your party flat now!</p>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content payment-modal">
+            <div class="modal-header">
+                <h2>Complete Payment</h2>
+                <span class="close-btn" id="closePayment">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="booking-details">
+                    <h3 id="bookingFlatName"></h3>
+                    <p id="bookingPrice"></p>
+                </div>
+                <div class="payment-methods">
+                    <h4>Select Payment Method</h4>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="esewa" checked>
+                        <i class="fab fa-cc-paypal"></i> eSewa
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="khalti">
+                        <i class="fas fa-mobile-alt"></i> Khalti
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="paypal">
+                        <i class="fab fa-paypal"></i> PayPal
+                    </label>
+                </div>
+                <button id="confirmPayment" class="btn-primary full-width">Pay Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal">
+            <i class="fas fa-check-circle"></i>
+            <h2>Booking Confirmed!</h2>
+            <p>Your party flat is booked successfully. Check My Bookings section.</p>
+            <button id="closeSuccess" class="btn-primary">Continue</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
